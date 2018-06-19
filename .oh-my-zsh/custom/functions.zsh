@@ -174,6 +174,26 @@ function gbfix {
   echo "\nReapplying branch commits:" && (echo $commits_on_this_branch | xargs git cherry-pick)
 }
 
+function gls {
+  local IFS=$'\n'
+  local listing=''
+
+  for line in `ls "$@"`; do
+    local fileName=$(echo $line | awk '{print $NF}')
+    if [[ "$fileName" == */ ]]; then
+      local uncolorizedFileName=$(gsed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" <<< "$fileName")
+      local gitInfo=$(print -P $(GIT_WORK_TREE=$uncolorizedFileName GIT_DIR=$uncolorizedFileName.git git_prompt_info))
+      local branch=${gitInfo/git:/}
+      branch=${branch/)/}
+
+      listing="$listing\n$line $branch"
+    else
+      listing=$listing$'\n'$line
+    fi
+  done
+  echo $listing | column -t -s '('
+}
+
 # function rspec {
 #   # Look for any running rspec-watcher, and send it a signal if it's running.
 #   watcherPID=$(ps aux | grep "[r]spec-watcher" | awk '{print $2}')
