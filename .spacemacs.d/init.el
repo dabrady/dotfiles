@@ -348,6 +348,8 @@ you should place your code here."
   (setq powerline-text-scale-factor 1.2) ; Scale the mode-line text relative to the main font size
   (fancy-battery-mode) ; Show battery status in mode-line
 
+  (defvar neo-vc-integration)
+  (setq neo-vc-integration '(face)) ; Highlight changed files in NeoTree
   (declare-function global-flycheck-mode "ext:global-flycheck-mode")
   (global-flycheck-mode) ; On-the-fly syntax checking
   (flycheck-add-mode 'typescript-tslint 'react-mode) ; Enable Typescript linter in React files
