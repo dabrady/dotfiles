@@ -345,6 +345,13 @@ you should place your code here."
 
   (exec-path-from-shell-copy-envs '("PATH" "MANPATH"))
 
+  ;; Use `mdfind' instead of `locate' on OS X.
+  (if (eq system-type 'darwin)
+      (progn
+        (defvar helm-locate-fuzzy-match)
+        (setq helm-locate-fuzzy-match nil)
+        (defvar helm-locate-command)
+        (setq helm-locate-command "mdfind -name %s %s")))
 
   ;; Setup Magithub
   (use-package magithub
