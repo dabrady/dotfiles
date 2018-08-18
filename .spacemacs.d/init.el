@@ -350,6 +350,9 @@ you should place your code here."
   (setq powerline-text-scale-factor 1.2) ; Scale the mode-line text relative to the main font size
   (fancy-battery-mode) ; Show battery status in mode-line
 
+  (declare-function global-centered-cursor-mode "ext:global-centered-cursor-mode")
+  (global-centered-cursor-mode) ; Keep the current line centered on screen
+
   (defvar neo-vc-integration)
   (setq neo-vc-integration '(face)) ; Highlight changed files in NeoTree
   (declare-function global-flycheck-mode "ext:global-flycheck-mode")
