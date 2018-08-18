@@ -344,6 +344,14 @@ you should place your code here."
 
   (exec-path-from-shell-copy-envs '("PATH" "MANPATH"))
 
+  ;; Keybinding for Shift-ENTER in insert mode: inserts an indented
+  ;; newline after the closest close-parenthesis.
+  (evil-global-set-key 'insert (kbd "S-<return>")
+    (lambda ()
+      (interactive)
+      (sp-up-sexp)
+      (newline-and-indent)))
+
   (declare-function global-company-mode "ext:global-company-mode")
   (global-company-mode) ; My auto-complete provider of choice
 
