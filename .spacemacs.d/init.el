@@ -1,7 +1,7 @@
-;; -*- mode: emacs-lisp -*-
-;; This file is loaded by Spacemacs at startup.
-;; It must be stored in your home directory.
-
+;;; init.el --- Initialization file for spacemacs
+;;; Commentary:
+;;; This file is loaded by Spacemacs at startup. It must be stored in your home directory.
+;;; Code:
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -31,6 +31,24 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     theming
+     themes-megapack
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-sort-by-usage t)
+     semantic
+     helm
+     git
+     org
+     (shell :variables
+            shell-default-shell 'ansi-term
+            shell-default-height 30
+            shell-default-term-shell "/bin/zsh"
+            shell-default-position 'bottom)
+     (syntax-checking :variables syntax-checking-enable-tooltips nil)
+     ;;; Languages
+     yaml
      racket
      csv
      react
@@ -49,24 +67,9 @@ values."
      sql
      typescript
 
-     themes-megapack
-     (auto-completion :variables
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-sort-by-usage t)
-     semantic
-     helm
-     git
-     org
-     (shell :variables
-            shell-default-shell 'ansi-term
-            shell-default-height 30
-            shell-default-term-shell "/bin/zsh"
-            shell-default-position 'bottom)
-     ;; spell-checking
-     (syntax-checking :variables syntax-checking-enable-tooltips nil)
-     ;; version-control
-    ) 
+     ;; My layers
+     my-spaceline
+   )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
