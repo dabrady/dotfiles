@@ -54,7 +54,7 @@ values."
      react
      ruby
      ruby-on-rails
-     markdown
+     (markdown :variables markdown-live-preview-engine 'vmd)
      emacs-lisp
      go
      elixir
