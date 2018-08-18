@@ -341,9 +341,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (global-company-mode)
 
   (exec-path-from-shell-copy-envs '("PATH" "MANPATH"))
+
+  (declare-function global-company-mode "ext:global-company-mode")
+  (global-company-mode) ; My auto-complete provider of choice
 
   (setq powerline-text-scale-factor 1.2) ; Scale the mode-line text relative to the main font size
   (fancy-battery-mode) ; Show battery status in mode-line
