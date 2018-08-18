@@ -345,6 +345,8 @@ you should place your code here."
 
   (exec-path-from-shell-copy-envs '("PATH" "MANPATH"))
 
+  (setq powerline-text-scale-factor 1.2) ; Scale the mode-line text relative to the main font size
+  (fancy-battery-mode) ; Show battery status in mode-line
 
   (defvar paradox-github-token)
   (setq paradox-github-token "a830729182c5e5c331524b0cdb14912fffcaa836") ; Github API token for Paradox (Emacs Package Menu)
