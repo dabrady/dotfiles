@@ -374,9 +374,6 @@ you should place your code here."
 
   (setq ruby-insert-encoding-magic-comment nil) ; Stop inserting "magic comments" automatically on save in Ruby mode.
 
-  (defvar paradox-github-token)
-  (setq paradox-github-token "a830729182c5e5c331524b0cdb14912fffcaa836") ; Github API token for Paradox (Emacs Package Menu)
-
   ;; Use `mdfind' instead of `locate' on OS X.
   (if (eq system-type 'darwin)
       (progn
