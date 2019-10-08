@@ -31,29 +31,41 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;;==================== +general
      theming
      themes-megapack
-     (auto-completion :variables
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-sort-by-usage t)
      semantic
      helm
      git
      org
+     ;;==================== +completion
+     ;; http://spacemacs.org/layers/+completion/auto-completion/README.html
+     ;; https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Bcompletion/auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      ;; tab key to complete as much of common completion as possible
+                      auto-completion-tab-key-behavior 'cycle
+                      ;; automatic docstring display
+                      auto-completion-enable-help-tooltip t
+                      ;; enable the most frequent matches to show first
+                      auto-completion-enable-sort-by-usage t
+                      )
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
             shell-default-term-shell "/bin/zsh"
             shell-default-position 'bottom)
-     (syntax-checking :variables syntax-checking-enable-tooltips nil)
-     ;;; Languages
+     ;;==================== +checkers
+     ;; https://github.com/syl20bnr/spacemacs/tree/master/layers/%2Bcheckers/syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-by-default nil ;; Turn it off by default, so I can customize the modes it applies to.
+                      syntax-checking-enable-tooltips nil)
+     ;;==================== +languages
      yaml
      racket
      csv
-     react
-     ruby
-     ruby-on-rails
+     (ruby :variables
+           ruby-test-runner 'rspec)
      (markdown :variables markdown-live-preview-engine 'vmd)
      emacs-lisp
      go
@@ -66,20 +78,23 @@ values."
      shell-scripts
      sql
      typescript
+     ;;==================== +frameworks
+     ruby-on-rails
+     react
 
-     ;; My layers
+     ;;==================== +custom
      my-spaceline
      bugfixes
-     (ambientheme :variables
-                  ambientheme-threshold 10
-                  ambientheme-light-theme 'leuven
-                  ambientheme-dark-theme  'gruvbox)
+     ;; (ambientheme :variables
+     ;;              ambientheme-threshold 10
+     ;;              ambientheme-light-theme 'leuven
+     ;;              ambientheme-dark-theme  'gruvbox)
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(magithub)
+   dotspacemacs-additional-packages '(s magithub prettier-js import-js)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -151,8 +166,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(leuven
-                         gruvbox
+   dotspacemacs-themes '(
+                         ;; gruvbox
+                         leuven
                          ;; gruvbox-light-hard
                          jazz
                          ;; seti
@@ -293,7 +309,7 @@ values."
    dotspacemacs-line-numbers 't
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'evil
+   dotspacemacs-folding-method 'origami
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -368,9 +384,12 @@ you should place your code here."
 
   (defvar neo-vc-integration)
   (setq neo-vc-integration '(face)) ; Highlight changed files in NeoTree
+
   (declare-function global-flycheck-mode "ext:global-flycheck-mode")
-  (global-flycheck-mode) ; On-the-fly syntax checking
-  (flycheck-add-mode 'typescript-tslint 'react-mode) ; Enable Typescript linter in React files
+  (defvar flycheck-global-modes)
+  (global-flycheck-mode)
+  (setq flycheck-global-modes '(not ruby-mode)) ; Enable for everything except Ruby. Sadly, my office Ruby projects are terrible and break Flychecker >.<
+  (flycheck-add-mode 'typescript-tslint 'web-mode) ; Enable Typescript linter in various web dev files
 
   (setq ruby-insert-encoding-magic-comment nil) ; Stop inserting "magic comments" automatically on save in Ruby mode.
 
@@ -405,6 +424,41 @@ you should place your code here."
     (setq css-indent-offset n) ; css-mode
    )
   (set-indent 2)
+
+  ;; Enable prettier-js minor mode for various major modes (formats on save)
+  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
+
+  ;;=============== MOVE SOMEWHERE ELSE
+  ;; Auto-linting
+  (defun eslint-autofix-buffer () (message "eslinting!"))
+  (defun tslint-autofix-buffer ()
+    (interactive)
+    (let ((filename (buffer-name)))
+      (message "triyng to lint")
+      (if (or (s-ends-with? filename ".ts") (s-ends-with? filename ".tsx"))
+          (progn
+            (message "Applying tslinter fixes to %s" (buffer-name))
+            (shell-command (concat (projectile-project-root) "/node_modules/.bin/tslint --fix " (buffer-file-name))))
+        )
+      )
+    )
+
+  ;; (add-hook 'js2-mode-hook (lambda () (add-hook 'after-save-hook #'eslint-autofix-buffer)))
+  (add-hook 'web-mode-hook (lambda () (add-hook 'after-save-hook #'tslint-autofix-buffer)))
+  ;;===============
+
+  ;; For personal Hammerspoons
+  (add-to-list 'auto-mode-alist '("\\.\\(?:flow\\|mode\\)\\'" . lua-mode))
+
+  ;; Fix auto-mode: I want '.m' files to be considered as Objective C source.
+  (add-to-list 'auto-mode-alist '("\\.\\(?:mm\\|m\\)\\'" . objc-mode))
+
+  ;; For things like blog posts
+  (defun datestamp ()
+    "Inserts an ISO formatted date-time"
+    (interactive)
+    (insert (shell-command-to-string "echo -n `gdate -Iminutes`")))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -418,6 +472,7 @@ you should place your code here."
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(auth-sources (quote ("~/.authinfo.gpg" "~/.authinfo" "~/.netrc")))
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(cursor-type (quote bar))
@@ -444,7 +499,9 @@ static char *note[] = {
 \"######....\",
 \"#######..#\" };")))
  '(evil-want-Y-yank-to-eol nil)
- '(fci-rule-color "#14151E")
+ '(fci-rule-color "#14151E" t)
+ '(flycheck-global-modes (quote (not ruby-mode)))
+ '(global-flycheck-mode t)
  '(gnus-logo-colors (quote ("#1ec1c4" "#bababa")) t)
  '(gnus-mode-line-image-cache
    (quote
@@ -476,9 +533,12 @@ static char *gnus-pointer[] = {
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (yaml-mode vmd-mode magithub ghub+ apiwrap all-the-icons memoize spaceline-all-the-icons writeroom-mode rainbow-mode rainbow-identifiers color-identifiers-mode yapfify web-mode web-beautify tide typescript-mode tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements ob-elixir lua-mode livid-mode skewer-mode simple-httpd live-py-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang hy-mode helm-pydoc helm-css-scss haml-mode go-guru go-eldoc flycheck-mix flycheck-credo fish-mode emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-go go-mode company-emacs-eclim eclim company-anaconda coffee-mode anaconda-mode pythonic alchemist elixir-mode projectile-rails inflections feature-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help stickyfunc-enhance srefactor helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete racket-mode faceup csv-mode flycheck-pos-tip pos-tip flycheck rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme mmm-mode markdown-toc markdown-mode gh-md smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (import-js grizzl stream prettier-js origami yafolding yaml-mode vmd-mode magithub ghub+ apiwrap all-the-icons memoize spaceline-all-the-icons writeroom-mode rainbow-mode rainbow-identifiers color-identifiers-mode yapfify web-mode web-beautify tide typescript-mode tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements ob-elixir lua-mode livid-mode skewer-mode simple-httpd live-py-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang hy-mode helm-pydoc helm-css-scss haml-mode go-guru go-eldoc flycheck-mix flycheck-credo fish-mode emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-go go-mode company-emacs-eclim eclim company-anaconda coffee-mode anaconda-mode pythonic alchemist elixir-mode projectile-rails inflections feature-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help stickyfunc-enhance srefactor helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete racket-mode faceup csv-mode flycheck-pos-tip pos-tip flycheck rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme mmm-mode markdown-toc markdown-mode gh-md smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+ '(paradox-github-token t)
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
- '(ruby-test-rspec-options (quote ("-b" "-c" "--format documentation")))
+ '(rspec-command-options "-c --drb --format documentation")
+ '(ruby-insert-encoding-magic-comment nil)
+ '(ruby-test-rspec-options (quote ("--drb" "-b" "-c" "--format documentation")))
  '(spaceline-all-the-icons-icon-set-bookmark (quote heart))
  '(spaceline-all-the-icons-icon-set-git-ahead (quote commit))
  '(spaceline-all-the-icons-icon-set-modified (quote toggle))
