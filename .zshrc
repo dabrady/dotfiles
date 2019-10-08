@@ -15,3 +15,7 @@ if [[ -z "$EMACS" ]]; then
 fi
 
 source $ZSH/oh-my-zsh.sh
+
+source $HOME/.asdf/asdf.sh
+source $HOME/.asdf/completions/asdf.bash
+
