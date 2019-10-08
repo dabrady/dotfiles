@@ -201,6 +201,17 @@ function gls {
 #   bundle exec rspec -c --format documentation
 # }
 
+# Encapsulates necessary environment setup for a local Kubernetes environment.
+function localkube-env() {
+    local MKBIN=$(which minikube)
+    local MYSHELL=$(basename ${SHELL})
+    eval $(${MKBIN} docker-env --shell ${MYSHELL} $@) && echo "docker CLI configured to use engine on minikube instance"
+    eval $(${MKBIN} completion ${MYSHELL}) && echo "minikube shell completions loaded"
+    eval $(kubectl completion ${MYSHELL}) && echo "kubectl shell completions loaded"
+    export MINIKUBE_IP="$(${MKBIN} ip $1)"
+    export MINIKUBE_SUBNET=$(echo ${MINIKUBE_IP} | awk -F '.' '{ printf("%s.%s.%s.0", $1, $2, $3) }')
+    export MINIKUBE_GATEWAY=$(echo ${MINIKUBE_IP} | awk -F '.' '{ printf("%s.%s.%s.1", $1, $2, $3) }')
+}
 ##### Handy one-liners #####
 
 ## Append text to all commit messages reachable by git-rebase
