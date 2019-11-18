@@ -499,7 +499,7 @@ static char *note[] = {
 \"######....\",
 \"#######..#\" };")))
  '(evil-want-Y-yank-to-eol nil)
- '(fci-rule-color "#14151E" t)
+ '(fci-rule-color "#14151E")
  '(flycheck-global-modes (quote (not ruby-mode)))
  '(global-flycheck-mode t)
  '(gnus-logo-colors (quote ("#1ec1c4" "#bababa")) t)
@@ -527,7 +527,7 @@ static char *gnus-pointer[] = {
 \"###..######.######\",
 \"###########.######\" };")) t)
  '(neo-window-fixed-size nil)
- '(neo-window-width 48)
+ '(neo-window-width 48 t)
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
