@@ -1,6 +1,6 @@
 [submodule ".hammerspoon"]
 	path = .hammerspoon
-	url = https://github.com/dabrady/hammerspoon_cfg
+	url = git@github.com:dabrady/hammerspoon_cfg
 [submodule ".emacs.d"]
 	path = .emacs.d
 	url = https://github.com/syl20bnr/spacemacs
