@@ -1,6 +1,7 @@
 ## User variables
 
-export EDITOR=emacs
+export EDITOR=$HOME/bin/scripts/editor.sh
+export ALTERNATE_EDITOR="" # used by emacsclient to automatically start daemon if needed
 
 # Workspace shortcuts
 export _zrc=$HOME/.zshrc

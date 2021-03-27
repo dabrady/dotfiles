@@ -15,10 +15,11 @@ alias forest='\tree --dirsfirst -C | less -r' # Page and order full tree
 alias tree='tree --dirsfirst -phFDCL 1' # Customize and restrict tree to level 1
 alias ls='clear; tree'
 alias lsl='ls -L'
-alias lsa='ls -A' # Show dotfiles
+alias lsa='ls -a' # Show dotfiles
 alias lsd='ls -d' # Show directories only
 alias lsf='ls | grep -v /$' # Show files only
-alias perms="stat -c %a" # Show file permissions
+alias perms="gstat -c %a" # Show file permissions
+alias edit='eval $EDITOR'
 
 alias path='echo $PATH | tr ":" "\n"'
 
@@ -33,7 +34,7 @@ alias gpr='git pull-request'
 alias gnp='git --no-pager'
 alias wat='git status'
 alias huh='git diff'
-alias whooops='git commit --amend'
+alias whooops='git commit -a --amend'
 alias whoops='whooops --no-edit'
 alias gunstage='git unstage'
 alias branches='git branch --'
@@ -44,11 +45,10 @@ alias t='todo.sh -acT'
 alias tp='t p'
 alias lst='clear; t ls'
 
-alias cfg='atom $ZSH_CUSTOM $HOME/.hammerspoon $HOME/.atom $HOME/.git_template $HOME/bin/scripts'
-alias zconf='atom $ZSH_CUSTOM/conf.zsh'
-alias zals='atom $ZSH_CUSTOM/aliases.zsh'
-alias zfun='atom $ZSH_CUSTOM/functions.zsh'
-alias zvars='atom $ZSH_CUSTOM/vars.zsh'
+alias zconf='edit $ZSH_CUSTOM/conf.zsh'
+alias zals='edit $ZSH_CUSTOM/aliases.zsh'
+alias zfun='edit $ZSH_CUSTOM/functions.zsh'
+alias zvars='edit $ZSH_CUSTOM/vars.zsh'
 alias rz='source ~/.zshrc'
 alias rzconf='source $ZSH_CUSTOM/conf.zsh'
 alias rzals='source $ZSH_CUSTOM/aliases.zsh'
@@ -67,3 +67,5 @@ alias bry='be pry -r ./config/environment'
 
 # Creates a symblink in my project workspace to Go's special Go place.
 alias makegohappy='project=`basename $(dirname "$PWD")`/`basename "$PWD"`; ln -sv "$PWD" "$HOME/github/$project"; unset $project'
+
+alias cd=cd_and_cj
