@@ -1,5 +1,12 @@
 ## User functions
 
+# I've started breaking out functions that I need access to in non-login environments.
+for function_file ($ZSH_CUSTOM/functions/*.zsh(N)); do
+  source $function_file
+done
+unset function_file
+
+
 ## TODO Finish this function; the dumb output might actually be specific to 'bundle exec', not 'rspec'
 # function mrspec {
 #   # $@ => rspec args
@@ -89,30 +96,6 @@ function dedupPath () {
   echo $PATH | tr ":" "\n" | awk '!seen[$0]++' | tr '\n' ':'
 }
 
-# Update JIRA environment variables
-function cj {
-  local jira_config=$HOME/.jira
-  local jira="$1"
-
-  # Sync in case unset or manually changed.
-  . $jira_config
-
-  # Do nothing if nothing given.
-  [[ -z "$jira" ]] && echo "Now tracking $JIRA_CURRENT." && return 0
-
-  if [[ $jira == '-' ]]; then
-    jira=$JIRA_PREVIOUS
-  fi
-
-  if [[ $JIRA_CURRENT != $jira ]]; then
-    gsed -i "/JIRA_PREVIOUS/s/=.*/=$JIRA_CURRENT/" $jira_config
-    gsed -i "/JIRA_CURRENT/s/=.*/=$jira/" $jira_config
-
-    . $jira_config
-    echo "Now tracking $jira."
-  fi
-}
-
 # Enhance new branch creation by auto-pushing it.
 function gbp {
   git checkout -b "$@"
@@ -143,12 +126,31 @@ function iterm2_print_user_vars {
 
 function fixruby {
   local rbv=${$(rbenv local)##ruby-}
+  local OPTS=
 
-  read -q "RESPONSE?Reinstall ruby v$rbv(y/n) "
+  read -q "RESPONSE?[db] Reinstall ruby v$rbv(y/n) "
   if [[ "$RESPONSE" = 'y' ]]; then
     echo
+
+    # @see https://github.com/rbenv/ruby-build/issues/1353#issuecomment-573414540
+    [[ ! "$rbv" > '2.4.1' ]]
+    local is_ancient=$?
+
+    if [[ "$is_ancient" == 0 ]]; then
+      echo "[db] Ruby version is ancient, will compile with OpenSSL@1.0"
+      OPTS='RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.0)"'
+    fi
+
+    echo "[db] Reinstalling..."
     rbenv uninstall "$rbv"
-    rbenv install "$rbv"
+    eval $OPTS rbenv install "$rbv"
+
+    if [[ "$is_ancient" == 0 ]]; then
+      echo "[db] Ancient Ruby needs ancient version of bundler..."
+      gem install bundler -v '~> 1'
+    fi
+
+    echo "[db] Should be fixed now."
   fi
 }
 
@@ -202,7 +204,7 @@ function gls {
 # }
 
 # Encapsulates necessary environment setup for a local Kubernetes environment.
-function localkube-env() {
+function localkube_env() {
     local MKBIN=$(which minikube)
     local MYSHELL=$(basename ${SHELL})
     eval $(${MKBIN} docker-env --shell ${MYSHELL} $@) && echo "docker CLI configured to use engine on minikube instance"
