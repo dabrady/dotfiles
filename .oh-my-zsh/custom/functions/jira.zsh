@@ -27,7 +27,7 @@ function cj {
       # emacsclient -ne --socket-name=$EMACS_DAEMON "(change-jira \"$jira\")" >/dev/null
     fi
 
-    echo "Now tracking $jira."
+    [[ ! " " == "$jira" ]] && echo "Now tracking $jira."
   fi
 }
 
@@ -40,6 +40,6 @@ function cd_and_cj {
     ticket=$(current_branch | egrep '[A-Z]+-\d+' -o)
     cj $ticket
   else
-    cj ' ' #> /dev/null
+    cj ' '
   fi
 }
