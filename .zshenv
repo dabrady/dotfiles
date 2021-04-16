@@ -1,3 +1,4 @@
 # Zsh environment stuff
 
-export PATH=$ANT_HOME/bin:$HOME/bin/scripts:$HOME/bin:$PATH
+export MANPATH=/opt/local/share/man:$MANPATH
+#export PATH=/opt/local/bin:/opt/local/sbin:$HOME/bin:$PATH

@@ -41,10 +41,6 @@ alias branches='git branch --'
 alias openchanged='wat -s | awk '\''{ print $2 }'\'' | xargs $EDITOR'
 alias opentouched='git --no-pager diff --name-only master | xargs $EDITOR'
 
-alias t='todo.sh -acT'
-alias tp='t p'
-alias lst='clear; t ls'
-
 alias zconf='edit $ZSH_CUSTOM/conf.zsh'
 alias zals='edit $ZSH_CUSTOM/aliases.zsh'
 alias zfun='edit $ZSH_CUSTOM/functions.zsh'
@@ -55,17 +51,18 @@ alias rzals='source $ZSH_CUSTOM/aliases.zsh'
 alias rzfun='source $ZSH_CUSTOM/functions.zsh'
 alias rzvars='source $ZSH_CUSTOM/vars.zsh'
 
-alias rbe=rbenv
-alias b='bundle'
-alias bi='b install'
-alias be='b exec'
-alias rspec='RAILS_ENV=test be rspec -c --format documentation'
-alias brake='be rake'
-alias brails='be rails'
-alias rc='brails c'
-alias bry='be pry -r ./config/environment'
+## Ruby things
+#alias rbe=rbenv
+#alias b='bundle'
+#alias bi='b install'
+#alias be='b exec'
+#alias rspec='RAILS_ENV=test be rspec -c --format documentation'
+#alias brake='be rake'
+#alias brails='be rails'
+#alias rc='brails c'
+#alias bry='be pry -r ./config/environment'
 
 # Creates a symblink in my project workspace to Go's special Go place.
-alias makegohappy='project=`basename $(dirname "$PWD")`/`basename "$PWD"`; ln -sv "$PWD" "$HOME/github/$project"; unset $project'
+#alias makegohappy='project=`basename $(dirname "$PWD")`/`basename "$PWD"`; ln -sv "$PWD" "$HOME/github/$project"; unset $project'
 
-alias cd=cd_and_cj
+#alias cd=cd_and_cj
