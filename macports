@@ -1,0 +1,14 @@
+# Core tools
+tree
+git
+hub
+coreutils
+
+# Nice to haves
+htop
+
+# Random tools
+wget
+cmake
+imagemagick
+ffmpeg
