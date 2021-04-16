@@ -3,7 +3,6 @@ SANITIZE = sed -e "/^\$$/d" -e "/^\#/d"
 .PHONY: noargs
 noargs:
 # nope
-	${SANITIZE}
 
 .PHONY: confirm
 confirm:
