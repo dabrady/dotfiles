@@ -8,12 +8,12 @@ noargs:
 confirm:
 	@/bin/echo -n "Continue? [y/N] " && read ans && [ $${ans:-N} = y ]
 
-.PHONY: list-ports
-list-ports:
-	@${SANITIZE} macports | xargs port info
+.PHONY: list-missing-ports
+list--missing-ports:
+	@grep -Fxv -f <(port -q installed | awk '{print $1;}') <(${SANITIZE} macports) | xargs port info
 	
 
 .PHONY: ports
-ports: list-ports confirm
+ports: list-missing-ports confirm
 	@${SANITIZE} macports | sudo xargs port install
 
