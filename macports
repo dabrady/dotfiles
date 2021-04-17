@@ -3,6 +3,7 @@ tree
 git
 hub
 coreutils
+emacs
 
 # Nice to haves
 htop
@@ -10,5 +11,5 @@ htop
 # Random tools
 wget
 cmake
-imagemagick
+ImageMagick
 ffmpeg
