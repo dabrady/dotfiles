@@ -378,8 +378,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   ;; A workaround for this issue with certain themes loading before their dependencies:
   ;;   https://github.com/syl20bnr/spacemacs/issues/8871
-  (load-file "~/.emacs.d/elpa/dash-20200119.2310/dash.el")
-  (load-file "~/.emacs.d/elpa/autothemer-20180920.923/autothemer.el")
+  ;; (load-file "~/.emacs.d/elpa/dash-20200119.2310/dash.el")
+  ;; (load-file "~/.emacs.d/elpa/autothemer-20180920.923/autothemer.el")
 
   (setq exec-path-from-shell-check-startup-files nil)
   )
@@ -471,14 +471,13 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
- '(auth-sources (quote ("~/.authinfo.gpg" "~/.authinfo" "~/.netrc")))
+ '(auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
- '(cursor-type (quote bar))
- '(diary-entry-marker (quote font-lock-variable-name-face))
+ '(cursor-type 'bar)
+ '(diary-entry-marker 'font-lock-variable-name-face)
  '(emms-mode-line-icon-image-cache
-   (quote
-    (image :type xpm :ascent center :data "/* XPM */
+   '(image :type xpm :ascent center :data "/* XPM */
 static char *note[] = {
 /* width height num_colors chars_per_pixel */
 \"    10   11        2            1\",
@@ -496,15 +495,14 @@ static char *note[] = {
 \"#..######.\",
 \"#######...\",
 \"######....\",
-\"#######..#\" };")))
+\"#######..#\" };"))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#14151E" t)
- '(flycheck-global-modes (quote (not ruby-mode)))
+ '(flycheck-global-modes '(not ruby-mode))
  '(global-flycheck-mode t)
- '(gnus-logo-colors (quote ("#1ec1c4" "#bababa")) t)
+ '(gnus-logo-colors '("#1ec1c4" "#bababa") t)
  '(gnus-mode-line-image-cache
-   (quote
-    (image :type xpm :ascent center :data "/* XPM */
+   '(image :type xpm :ascent center :data "/* XPM */
 static char *gnus-pointer[] = {
 /* width height num_colors chars_per_pixel */
 \"    18    13        2            1\",
@@ -524,29 +522,26 @@ static char *gnus-pointer[] = {
 \"######..###.######\",
 \"###....####.######\",
 \"###..######.######\",
-\"###########.######\" };")) t)
+\"###########.######\" };") t)
  '(neo-window-fixed-size nil)
- '(neo-window-width 48)
+ '(neo-window-width 48 t)
  '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   (quote
-    (dockerfile-mode docker tablist docker-tramp visual-fill-column terraform-mode hcl-mode scala-mode sbt-mode noflet writeroom-mode treepy lv transient company-quickhelp import-js grizzl stream prettier-js origami yafolding yaml-mode vmd-mode magithub ghub+ apiwrap all-the-icons memoize spaceline-all-the-icons rainbow-mode rainbow-identifiers color-identifiers-mode yapfify web-mode web-beautify tide typescript-mode tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements ob-elixir lua-mode livid-mode skewer-mode simple-httpd live-py-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang hy-mode helm-pydoc helm-css-scss haml-mode go-guru go-eldoc flycheck-mix flycheck-credo fish-mode emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-go go-mode company-emacs-eclim eclim company-anaconda coffee-mode anaconda-mode pythonic alchemist elixir-mode projectile-rails inflections feature-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help stickyfunc-enhance srefactor helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete racket-mode faceup csv-mode flycheck-pos-tip pos-tip flycheck rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme mmm-mode markdown-toc markdown-mode gh-md smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+   '(dockerfile-mode docker tablist docker-tramp visual-fill-column terraform-mode hcl-mode scala-mode sbt-mode noflet writeroom-mode treepy lv transient company-quickhelp import-js grizzl stream prettier-js origami yafolding yaml-mode vmd-mode magithub ghub+ apiwrap all-the-icons memoize spaceline-all-the-icons rainbow-mode rainbow-identifiers color-identifiers-mode yapfify web-mode web-beautify tide typescript-mode tagedit sql-indent slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pip-requirements ob-elixir lua-mode livid-mode skewer-mode simple-httpd live-py-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang hy-mode helm-pydoc helm-css-scss haml-mode go-guru go-eldoc flycheck-mix flycheck-credo fish-mode emmet-mode cython-mode company-web web-completion-data company-tern dash-functional tern company-shell company-go go-mode company-emacs-eclim eclim company-anaconda coffee-mode anaconda-mode pythonic alchemist elixir-mode projectile-rails inflections feature-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help stickyfunc-enhance srefactor helm-company helm-c-yasnippet fuzzy company-statistics company auto-yasnippet yasnippet ac-ispell auto-complete racket-mode faceup csv-mode flycheck-pos-tip pos-tip flycheck rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme mmm-mode markdown-toc markdown-mode gh-md smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download magit-gitflow htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub with-editor ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
  '(paradox-github-token t)
- '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(rspec-command-options "-c --drb --format documentation")
  '(ruby-insert-encoding-magic-comment nil)
- '(ruby-test-rspec-options (quote ("--drb" "-b" "-c" "--format documentation")))
- '(spaceline-all-the-icons-icon-set-bookmark (quote heart))
- '(spaceline-all-the-icons-icon-set-git-ahead (quote commit))
- '(spaceline-all-the-icons-icon-set-modified (quote toggle))
- '(spaceline-all-the-icons-icon-set-sun-time (quote sun/moon))
- '(spaceline-all-the-icons-icon-set-window-numbering (quote solid))
+ '(ruby-test-rspec-options '("--drb" "-b" "-c" "--format documentation"))
+ '(spaceline-all-the-icons-icon-set-bookmark 'heart)
+ '(spaceline-all-the-icons-icon-set-git-ahead 'commit)
+ '(spaceline-all-the-icons-icon-set-modified 'toggle)
+ '(spaceline-all-the-icons-icon-set-sun-time 'sun/moon)
+ '(spaceline-all-the-icons-icon-set-window-numbering 'solid)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#d54e53")
+   '((20 . "#d54e53")
      (40 . "goldenrod")
      (60 . "#e7c547")
      (80 . "DarkOliveGreen3")
@@ -563,7 +558,7 @@ static char *gnus-pointer[] = {
      (300 . "#d54e53")
      (320 . "goldenrod")
      (340 . "#e7c547")
-     (360 . "DarkOliveGreen3"))))
+     (360 . "DarkOliveGreen3")))
  '(vc-annotate-very-old-color nil)
  '(writeroom-width 80))
 (custom-set-faces
