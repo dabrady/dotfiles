@@ -3,7 +3,8 @@ tree
 git
 hub
 coreutils
-emacs
+#emacs
+emacs-mac-app # Mitsuharo version, w/GUI support
 
 # Nice to haves
 htop

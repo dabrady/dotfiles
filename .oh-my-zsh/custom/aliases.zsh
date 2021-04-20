@@ -1,5 +1,9 @@
 ## User aliases
 
+# Specific programs
+alias emacs='/Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs'
+alias emacsclient='/Applications/MacPorts/EmacsMac.app/Contents/MacOS/bin/emacsclient'
+
 # Better zsh help
 unalias run-help 2>/dev/null
 autoload run-help
