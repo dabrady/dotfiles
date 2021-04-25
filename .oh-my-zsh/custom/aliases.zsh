@@ -67,6 +67,8 @@ alias rzvars='source $ZSH_CUSTOM/vars.zsh'
 #alias bry='be pry -r ./config/environment'
 
 # Creates a symblink in my project workspace to Go's special Go place.
-#alias makegohappy='project=`basename $(dirname "$PWD")`/`basename "$PWD"`; ln -sv "$PWD" "$HOME/github/$project"; unset $project'
+#alias makegohappy='project=`basename $(dirname "$PWD")`/`basename "$PWD"`; ln -sv "$PWD" "$GITHUBS/$project"; unset $project'
 
 #alias cd=cd_and_cj
+
+alias dots='cd $GITHUBS/dotfiles'
