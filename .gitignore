@@ -1,4 +1,4 @@
-.oh-my-zsh/custom/secret.zsh
-.oh-my-zsh/custom/prodperfect.zsh
+oh-my-zsh/custom/secret.zsh
+oh-my-zsh/custom/prodperfect.zsh
 
-.spacemacs.d/.spacemacs.env
+spacemacs.d/.spacemacs.env

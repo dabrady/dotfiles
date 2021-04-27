@@ -1,9 +1,9 @@
 [submodule ".hammerspoon"]
-	path = .hammerspoon
+	path = hammerspoon
 	url = git@github.com:dabrady/hammerspoon_cfg
 [submodule ".emacs.d"]
-	path = .emacs.d
+	path = emacs.d
 	url = https://github.com/syl20bnr/spacemacs
 [submodule ".oh-my-zsh/custom/plugins/zsh-nvm"]
-	path = .oh-my-zsh/custom/plugins/zsh-nvm
+	path = oh-my-zsh/custom/plugins/zsh-nvm
 	url = https://github.com/lukechilds/zsh-nvm
