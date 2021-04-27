@@ -59,11 +59,15 @@ if [[ -z "$EMACS" ]]; then
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
+## Turn on Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
 # ASDF Version Manager
 #source $HOME/.asdf/asdf.sh
 #source $HOME/.asdf/completions/asdf.bash
+
+# Turn on pipenv completions
+eval "$(pipenv --completion)"
 
 # User configuration
 
