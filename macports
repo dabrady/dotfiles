@@ -3,8 +3,10 @@ tree
 git
 hub
 coreutils
+
+## Mitsuharo version, w/GUI support
 #emacs
-emacs-mac-app # Mitsuharo version, w/GUI support
+emacs-mac-app
 
 # Nice to haves
 htop
@@ -14,3 +16,11 @@ wget
 cmake
 ImageMagick
 ffmpeg
+lynx
+pandoc
+
+# Python tools
+python38
+py38-virtualenv
+py38-virtualenvwrapper
+pipx
