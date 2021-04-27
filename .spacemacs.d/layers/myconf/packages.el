@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (c) 2012-2018 Sylvain Benner & Contributors
 ;;
-;; Author: Daniel Brady <daniel.brady@Daniels-MBP.fios-router.home>
+;; Author: Daniel Brady <daniel.13rady@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.

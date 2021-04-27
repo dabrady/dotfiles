@@ -14,9 +14,11 @@
 ;
 ;;; Code:
 (defconst my-spaceline-packages
-  '(all-the-icons
+  '(
+    all-the-icons
     spaceline ; Owned by spacemacs-ui-visual, don't init
-    spaceline-all-the-icons))
+    spaceline-all-the-icons
+    ))
 
 (defun my-spaceline/init-all-the-icons ()
   "Initialize the all-the-icons package."

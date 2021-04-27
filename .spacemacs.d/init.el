@@ -30,8 +30,9 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
-     finance
+   '(
+     ;; rust
+     ;; finance
      ;;==================== +general
      theming
      ;; themes-megapack
@@ -69,11 +70,11 @@ values."
                       syntax-checking-enable-tooltips nil)
      ;;==================== +languages
      yaml
-     racket
+     ;; racket
      csv
-     (ruby :variables
-           ruby-version-manager 'rbenv
-           ruby-test-runner 'rspec)
+     ;; (ruby :variables
+     ;;       ruby-version-manager 'rbenv
+     ;;       ruby-test-runner 'rspec)
      ;; (markdown :variables markdown-live-preview-engine 'vmd)
      markdown
      emacs-lisp
@@ -87,19 +88,18 @@ values."
      shell-scripts
      sql
      typescript
-     coffeescript
+     ;; coffeescript
      ;; scala
      ;;==================== +frameworks
      terraform
      docker
-     ruby-on-rails
+     ;; ruby-on-rails
      react
 
      ;;==================== +custom
      my-spaceline
      bugfixes
      myconf
-     ;; terragrunt
      ;; (ambientheme :variables
      ;;              ambientheme-threshold 10
      ;;              ambientheme-light-theme 'leuven
@@ -193,14 +193,12 @@ values."
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
-   ;; NOTE(dabrady) This isn't working for me: moved to manually manipulating in config.
-   ;; Thought: might be bad interplay between theme and face.
    ;; Default font, or prioritized list of fonts. `rators look not too crappy.
-   ;; dotspacemacs-default-font `("Triplicate T4c"
-   ;;                             :size 16
-   ;;                             :weight normal
-   ;;                             :width normal
-   ;;                             :powerline-scale 1.2)
+   dotspacemacs-default-font `("Triplicate T4c"
+                               :size 16
+                               :weight normal
+                               :width normal
+                               :powerline-scale 1.2)
    dotspacemacs-mode-line-theme '(spacemacs
                                   :separator wave
                                   :separator-scale 1.5)
@@ -392,6 +390,12 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; GUI Settings for YAMAMOTO Mitsuharu's Mac port of GNU Emacs.
+  (when (and (spacemacs/system-is-mac) (display-graphic-p))
+    ;; Disable pixel-by-pixel scrolling, since it's extremely choppy.
+    (setq mac-mouse-wheel-smooth-scroll nil)
+    )
+
   (setq markdown-command "pandoc")
   (global-writeroom-mode)
 
@@ -405,12 +409,6 @@ you should place your code here."
 
   (global-company-mode) ; My auto-complete provider of choice
 
-  ;;; Configure frame face
-  (defvar-local font-point-size 16)
-  (set-face-attribute 'default nil :family "Triplicate T4c")
-  (set-face-attribute 'default nil :weight 'normal)
-  (set-face-attribute 'default nil :width 'normal)
-  (set-face-attribute 'default nil :height (* font-point-size 10)) ; docs say this value is measured in units of 1/10th of a point
   ;; Scale the mode-line text relative to the main font size
   (setq powerline-text-scale-factor 1.2)
   ;; Show battery status in mode-line
@@ -423,16 +421,17 @@ you should place your code here."
   ;; (defvar neo-vc-integration)
   ;; (setq neo-vc-integration '(face)) ; Highlight changed files in NeoTree
 
-  ;; Enable for everything except Ruby. Sadly, my office Ruby projects are terrible and break Flychecker >.<
   (global-flycheck-mode)
-  (setq flycheck-global-modes '(not ruby-mode))
+  (setq flycheck-global-modes '())
+
   ;; Enable Typescript linter in various web dev files
   (flycheck-add-mode 'typescript-tslint 'web-mode)
 
+  ;; Necessary.
   (setq flycheck-python-pycompile-executable "python3")
 
   ;; Stop inserting "magic comments" automatically on save in Ruby mode.
-  (setq ruby-insert-encoding-magic-comment nil)
+  ;; (setq ruby-insert-encoding-magic-comment nil)
 
   ;; Use `mdfind' instead of `locate' on OS X.
   (if (eq system-type 'darwin)
@@ -442,8 +441,17 @@ you should place your code here."
         (defvar helm-locate-command)
         (setq helm-locate-command "mdfind -name %s %s")))
 
-  ;; Setup Magithub
+  ;; Setup project managers
   (setq magithub-clone-default-directory "~/github")
+  (setq magit-repository-directories '(
+                                       ("~/github" . 1)
+                                       ("~/github/prodperfect" . 1)
+                                       ))
+  (setq projectile-project-search-path '(
+                                         "~/github"
+                                         "~/github/prodperfect"
+                                         ))
+
 
   ;; Setup indentation level for various modes
   (set-indent 2)
