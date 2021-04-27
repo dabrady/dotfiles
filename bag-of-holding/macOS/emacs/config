@@ -1,0 +1,10 @@
+## Config for macOS Emacs things 
+#printf 'Loading macOS Emacs config...'
+
+# Ensure MacPorts installation of Emacs & Co. are used
+export PATH=/Applications/MacPorts/EmacsMac.app/Contents/MacOS:/Applications/MacPorts/EmacsMac.app/Contents/MacOS/bin:$PATH
+
+# Namespace our daemon
+export EMACS_DAEMON=spacemacs
+
+#printf "Done.\n"
