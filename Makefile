@@ -1,3 +1,6 @@
+DRY_RUN ?=
+DO := $$( test -z ${DRY_RUN} && echo '' || echo 'echo' )
+
 SANITIZE = sed -e "/^\$$/d" -e "/^\#/d"
 
 .PHONY: noargs
@@ -12,15 +15,16 @@ confirm:
 SOURCES = authinfo.gpg bag-of-holding emacs.d hammerspoon oh-my-zsh/custom pryrc spacemacs.d todo.cfg zprofile zshenv zshrc
 dots: $(addprefix ~/., ${SOURCES})
 ~/.%: %
-	@ln -sv ${PWD}/$* $@
+	@${DO} ln -sv ${PWD}/$* $@
 
 .PHONY: list-missing-ports
-list--missing-ports:
-	@grep -Fxv -f <(port -q installed | awk '{print $1;}') <(${SANITIZE} macports) | xargs port info
-	
+list-missing-ports: INSTALLED_PORTS := $$(port -q installed | awk '{print $1;}')
+list-missing-ports: DESIRED_PORTS := $$(${SANITIZE} macports)
+list-missing-ports:
+	@${DO} grep -Fxv -f ${INSTALLED_PORTS} ${DESIRED_PORTS} | ${DO} xargs port info
 
 .PHONY: ports
 ports: list-missing-ports confirm
-	@${SANITIZE} macports | sudo xargs port install
+	@${DO} ${SANITIZE} macports | ${DO} sudo xargs port install
 
 
