@@ -9,7 +9,7 @@ confirm:
 	@/bin/echo -n "Continue? [y/N] " && read ans && [ $${ans:-N} = y ]
 
 ## Generate any missing dotted symlinks to source config.
-SOURCES = bag-of-holding emacs.d hammerspoon oh-my-zsh/custom pryrc spacemacs.d todo.cfg zprofile zshenv zshrc
+SOURCES = authinfo.gpg bag-of-holding emacs.d hammerspoon oh-my-zsh/custom pryrc spacemacs.d todo.cfg zprofile zshenv zshrc
 dots: $(addprefix ~/., ${SOURCES})
 ~/.%: %
 	@ln -sv ${PWD}/$* $@

@@ -442,6 +442,7 @@ you should place your code here."
         (setq helm-locate-command "mdfind -name %s %s")))
 
   ;; Setup project managers
+  (setq auth-sources '((:source "~/.authinfo.gpg")))
   (setq magithub-clone-default-directory "~/github")
   (setq magit-repository-directories '(
                                        ("~/github" . 1)
