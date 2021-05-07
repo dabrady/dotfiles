@@ -3,6 +3,8 @@ tree
 git
 hub
 coreutils
+gsed
+the_silver_searcher
 
 ## Mitsuharo version, w/GUI support
 #emacs
@@ -20,7 +22,5 @@ lynx
 pandoc
 
 # Python tools
-python38
-py38-virtualenv
-py38-virtualenvwrapper
-pipx
+python37
+pipenv
