@@ -94,3 +94,12 @@ eval "$(pipenv --completion)"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+### Initialize ASDF version manager
+source ~/.asdf/asdf.sh
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit
+compinit
+
