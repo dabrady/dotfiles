@@ -4,6 +4,8 @@ My personal dotfiles.
 Platform: [macOS](https://www.apple.com/macos/)
 
 Tools I use:
+- [MacPorts](http://macports.org)
+- [ASDF Version Manager](https://asdf-vm.com/)
 - [Slack](https://slack.com/)
 - [Chrome](https://www.google.com/chrome/)
 - [Spacemacs](https://www.spacemacs.org/)
@@ -17,3 +19,7 @@ Tools I use:
 - [GIPHY Capture (🍎)](https://giphy.com/apps/giphycapture)
 - [myNoise (browser-based)](https://mynoise.net/)
 - [Spotify](https://www.spotify.com/)
+
+# thoughts
+
+Leverage ASDF for more things; keep a list of plugins for batch installation
