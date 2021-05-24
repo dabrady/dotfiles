@@ -5,6 +5,7 @@ hub
 coreutils
 gsed
 the_silver_searcher
+jq
 
 ## Mitsuharo version, w/GUI support
 #emacs
