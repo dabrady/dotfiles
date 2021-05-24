@@ -1,0 +1,15 @@
+/* Adjust default fonts to my liking. */
+:root {
+  /* Grab reference to application defaults */
+  --obsidian-default-font: var(--default-font);
+  --obsidian-font-monospace: var(--font-monospace);
+}
+.theme-dark, .theme-light {
+  /* Override, but fallback to, application defaults */
+  --default-font: 'IA Writer Quattro V', var(--obsidian-default-font);
+  --font-monospace: 'IA Writer Mono V', 'Triplicate T5c', var(--obsidian-font-monospace);
+}
+.markdown-source-view {
+  /* This is not a variable/custom property, so it will cascade as expected if the font is not installed */
+  font-family: 'IA Writer Duo V';
+}
