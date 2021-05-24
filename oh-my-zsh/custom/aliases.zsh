@@ -37,7 +37,7 @@ alias interrupt='kill -2'
 alias watch='watch '
 
 alias git=hub
-alias gpr='git pull-request'
+alias make-pr='git pull-request --browse --assign $GITHUB_USER'
 alias gnp='git --no-pager'
 alias wat='git status'
 alias huh='git diff'
