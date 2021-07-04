@@ -66,9 +66,6 @@ source $ZSH/oh-my-zsh.sh
 #source $HOME/.asdf/asdf.sh
 #source $HOME/.asdf/completions/asdf.bash
 
-# Turn on pipenv completions
-eval "$(pipenv --completion)"
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -102,4 +99,3 @@ fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit
 compinit
-
