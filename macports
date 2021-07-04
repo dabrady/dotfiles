@@ -6,6 +6,7 @@ coreutils
 gsed
 the_silver_searcher
 jq
+pinentry-mac
 
 ## Mitsuharo version, w/GUI support
 #emacs
