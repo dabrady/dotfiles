@@ -1,12 +1,5 @@
 ## User functions
 
-# I've started breaking out functions that I need access to in non-login environments.
-for function_file ($ZSH_CUSTOM/functions/*.zsh(N)); do
-  source $function_file
-done
-unset function_file
-
-
 ## TODO Finish this function; the dumb output might actually be specific to 'bundle exec', not 'rspec'
 # function mrspec {
 #   # $@ => rspec args
