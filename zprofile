@@ -12,3 +12,18 @@ export DISPLAY=:0
 
 export MANPATH=/opt/local/share/man:$MANPATH
 
+## NOTE(dabrady) Copied from .bash_profile, which is where `conda init` puts it :p
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/local/bin/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/local/bin/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/opt/local/bin/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/local/bin/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
