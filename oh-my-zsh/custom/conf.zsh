@@ -8,6 +8,12 @@ for file ($ZSH_CUSTOM/facets/*.zsh(N)); do
 done
 unset file
 
+# A sort of 'hook' system for executing code upon changing directories.
+function cd() {
+  builtin cd "$@"
+  event emit _CD_
+}
+
 # Enable more powerful globbing
 setopt extended_glob
 
