@@ -1,3 +1,5 @@
+export JIRA_CURRENT=
+
 # Update JIRA environment variables
 function cj {
   local jira_config=$HOME/.jira
