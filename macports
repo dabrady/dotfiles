@@ -3,6 +3,7 @@ tree
 git
 hub
 coreutils
+diffutils
 gsed
 the_silver_searcher
 jq
