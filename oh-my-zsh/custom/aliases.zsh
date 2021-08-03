@@ -55,7 +55,6 @@ alias zvars='edit $ZSH_CUSTOM/vars.zsh'
 alias rz='source ~/.zshrc'
 alias rzconf='source $ZSH_CUSTOM/conf.zsh'
 alias rzals='source $ZSH_CUSTOM/aliases.zsh'
-alias rzfun='source $ZSH_CUSTOM/functions.zsh'
 alias rzvars='source $ZSH_CUSTOM/vars.zsh'
 
 ## Ruby things
