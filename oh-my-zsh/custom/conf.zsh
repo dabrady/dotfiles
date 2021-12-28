@@ -14,6 +14,14 @@ function cd() {
   event emit _CD_
 }
 
+# Fallback to personal "global" Makefile
+function make() {
+  if [[ -a Makefile ]]; then
+    /usr/bin/make "$@"
+  else
+    ( set -x; /usr/bin/make -f $ZSH_CUSTOM/Makefile "$@" )
+  fi
+}
 # Enable more powerful globbing
 setopt extended_glob
 
