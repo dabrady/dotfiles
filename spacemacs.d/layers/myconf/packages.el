@@ -30,7 +30,12 @@
 ;;; Code:
 
 (defconst myconf-packages
-  '(s magithub prettier-js import-js writeroom-mode)
+  '(s
+    magithub
+    ;; prettier-js
+    ;; import-js
+    ;; writeroom-mode
+    )
   "The list of Lisp packages required by the myconf layer.
 
 Each entry is either:
@@ -71,20 +76,20 @@ Each entry is either:
     :config (magithub-feature-autoinject t))
 )
 
-(defun myconf/init-prettier-js ()
-  "Initialize prettier-js."
-  (use-package prettier-js
-    :defer t))
+;; (defun myconf/init-prettier-js ()
+;;   "Initialize prettier-js."
+;;   (use-package prettier-js
+;;     :defer t))
 
-(defun myconf/init-import-js ()
-  "Initialize import-js."
-  (use-package import-js
-    :defer t))
+;; (defun myconf/init-import-js ()
+;;   "Initialize import-js."
+;;   (use-package import-js
+;;     :defer t))
 
-(defun myconf/init-writeroom-mode ()
-  "Initialize writeroom-mode."
-  (use-package writeroom-mode
-    :defer t))
+;; (defun myconf/init-writeroom-mode ()
+;;   "Initialize writeroom-mode."
+;;   (use-package writeroom-mode
+;;     :defer t))
 
 (provide 'packages)
 ;;; packages.el ends here
