@@ -24,6 +24,13 @@ function make() {
     ( set -x; /usr/bin/make -f $ZSH_CUSTOM/Makefile "$@" )
   fi
 }
+
+function exit() {
+  # NOTE Emitting the event _before_ issuing the command, so that any synchronous
+  # processing happens before we actually kill the session.
+  event emit _EXIT_
+  builtin exit "$@"
+}
 # Enable more powerful globbing
 setopt extended_glob
 
