@@ -100,7 +100,7 @@ values."
      react
 
      ;;==================== +custom
-     my-spaceline
+     ;; my-spaceline  ; NOTE(dabrady) Something is up with this now. Not sure if it matters.
      bugfixes
      myconf
      ;; (ambientheme :variables
