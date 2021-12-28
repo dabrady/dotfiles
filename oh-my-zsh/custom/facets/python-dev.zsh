@@ -11,6 +11,7 @@ function try_to_activate_python_if_it_makes_sense() {
   if [[ 0 -eq $conda_env_activated && $current_pyversion == $required_pyversion* ]]; then return 0; fi
 
   local best_pyenv=$(select_conda_env_for_python_version $required_pyversion)
+  local postactivate='python --version'
 
   # If we don't have a suitable virtual environment, prompt to make one.
   if [[ -z $best_pyenv ]]; then
@@ -27,10 +28,11 @@ function try_to_activate_python_if_it_makes_sense() {
 
   # Put on our Sunday best.
   activate $best_pyenv
+  eval "${postactivate}"
 }
 
 function deactivate() {
-  echo "[db] Deactivating $CONDA_DEFAULT_ENV"
+  ${DEBUG} "[db] Deactivating $CONDA_DEFAULT_ENV"
   conda deactivate
   alias exit >/dev/null && unalias 'exit'
   return 0
@@ -43,7 +45,7 @@ function activate() {
   # Deactivate current session
   test -z $CONDA_PREFIX || deactivate
   # Activate the provisioned conda environment
-  echo "[db] Activating $v_env"
+  ${DEBUG} "[db] Activating $v_env"
   conda activate $v_env
 
   # Get ahead of habits

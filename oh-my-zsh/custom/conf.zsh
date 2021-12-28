@@ -1,6 +1,8 @@
 ########################################
 # User configuration
 #########################################
+DEBUG='echo'
+DEBUG=':' # NOTE(dabrady) Comment this out to enable debug logging
 
 # I've started organizing config such as functions and aliases into namespaced "facets".
 for file ($ZSH_CUSTOM/facets/*.zsh(N)); do
