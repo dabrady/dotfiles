@@ -393,6 +393,13 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; For some reason I don't quite understand, we need to reload this file when
+  ;; creating frames and running Emacs as a daemon.
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (select-frame frame)
+              (dotspacemacs/sync-configuration-layers)))
+
   ;; GUI Settings for YAMAMOTO Mitsuharu's Mac port of GNU Emacs.
   (when (and (spacemacs/system-is-mac) (display-graphic-p))
     ;; Disable pixel-by-pixel scrolling, since it's extremely choppy.
