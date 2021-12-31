@@ -103,10 +103,10 @@ values."
      ;; my-spaceline  ; NOTE(dabrady) Something is up with this now. Not sure if it matters.
      bugfixes
      myconf
-     ;; (ambientheme :variables
-     ;;              ambientheme-threshold 10
-     ;;              ambientheme-light-theme 'leuven
-     ;;              ambientheme-dark-theme  'gruvbox)
+     (ambientheme :variables
+                  ambientheme-threshold 10
+                  ambientheme-light-theme 'leuven
+                  ambientheme-dark-theme  'gruvbox)
    )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these

@@ -12,7 +12,7 @@
   (when (and (spacemacs/system-is-mac)
              (executable-find "hs"))
     (shell-command-to-string
-     (concat "hs -c \"" code "\""))))
+     (concat "hs -q -c \"" code "\""))))
 
 (defun ambientheme-lux-func-default ()
   "Uses Hammerspoon to determine the ambient brightness detected by your Mac's
@@ -32,9 +32,9 @@ Mac's sensor."
 
 (cl-defun ambientheme/pick (&optional (dark-theme ambientheme-dark-theme)
                                       (light-theme ambientheme-light-theme))
-  "Pick the theme registered with Ambientheme most appropriate for the given
-ambience level, with optional arguments DARK-THEME and LIGHT-THEME acting as
-overrides for the corresponding theme."
+  "Pick the theme registered with Ambientheme most appropriate for the current
+ambient light level, with optional arguments DARK-THEME and LIGHT-THEME acting
+as overrides for the corresponding theme."
   (let ((ambience (ambientheme/ambient-brightness)))
     (when ambience
       (if (< ambience ambientheme-threshold)
@@ -48,7 +48,7 @@ given ambience level."
   (let ((chosen-theme (ambientheme/pick)))
     (when (not (or (eq nil chosen-theme)
                    (eq spacemacs--cur-theme chosen-theme)))
-      (spacemacs/load-theme chosen-theme)
+      (spacemacs/load-theme chosen-theme nil t)
       (message "%s theme activated" spacemacs--cur-theme))))
 ;; (ambientheme/pick-and-change-theme)
 
