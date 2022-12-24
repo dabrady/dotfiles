@@ -36,7 +36,6 @@ alias interrupt='kill -2'
 # This allows us to use the 'watch' command with an alias. Unfortunately, passing any flags will break this :P
 alias watch='watch '
 
-alias git=hub
 alias make-pr='git pull-request --browse --assign $GITHUB_USER'
 alias gnp='git --no-pager'
 alias wat='git status'
