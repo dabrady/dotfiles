@@ -2,8 +2,8 @@
 
 SHELL := /opt/local/bin/bash
 
-CONFIG_FILES      := ( [pipenv]=Pipfile            [yarn]=package.json )
-RUN_COMMANDS      := ( [pipenv]=run                [yarn]= )
+CONFIG_FILES      := ( [pipenv]=Pipfile            [yarn]=yarn.lock    [pnpm]=pnpm-lock.yaml )
+RUN_COMMANDS      := ( [pipenv]=run                [yarn]=             [pnpm]= )
 # TODO support Django
 # SECONDARY_RUNNERS := ( [django]="python manage.py" )
 
@@ -20,16 +20,16 @@ noargs:
 	; declare -A RUNNERS=${RUN_COMMANDS}\
 	; declare STATUS\
 	; for runner in "$${!RUNNERS[@]}"; do\
-	  ( for config_file in $${CONFIGS[$$runner]}; do test -f $$config_file || exit 1; done );\
-	  if [[ 0 == "$$?" ]]; then\
-	    ( set -x; $$runner ${RUNNER_ARGS} $${RUNNERS[$$runner]} $* ${ARGS} );\
-	    STATUS=$$?;\
-			break;\
-		fi\
-	; done;\
-	if [[ -z "$$STATUS" ]]; then\
-	  echo "Can't do anything here.";\
-	  exit 1;\
-	else\
-	  exit $$STATUS;\
-	fi\
+	  ( for config_file in $${CONFIGS[$$runner]}; do test -f $$config_file || exit 1; done )\
+	  ; if [[ 0 == "$$?" ]]; then\
+	      ( set -x; $$runner ${RUNNER_ARGS} $${RUNNERS[$$runner]} $* ${ARGS} )\
+	    	; STATUS=$$?\
+				; break; \
+			fi\
+	; done\
+	; if [[ -z "$$STATUS" ]]; then\
+	    echo "Can't do anything here."\
+	    ; exit 1;\
+	  else\
+	    exit $$STATUS;\
+	  fi\
