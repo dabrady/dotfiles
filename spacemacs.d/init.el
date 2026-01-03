@@ -37,6 +37,9 @@ values."
      semantic
      helm
      git
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t)
      org
      (treemacs :variables
                treemacs-use-follow-mode 'tag
@@ -95,7 +98,8 @@ values."
      (dart :variables
            lsp-dart-sdk-dir "~/bin/flutter/bin/cache/dart-sdk")
      ;;==================== +frameworks
-     terraform
+     (terraform :variables
+                terraform-format-on-save-mode t)
      docker
      ;; ruby-on-rails
      react
@@ -117,7 +121,14 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    ;; NOTE(daniel): @see layers/myconf instead
-   dotspacemacs-additional-packages '(leuven-theme gruvbox-theme)
+   dotspacemacs-additional-packages
+   '(
+     leuven-theme
+     gruvbox-theme
+     (prisma-mode :location (recipe
+                             :fetcher github
+                             :repo "pimeys/emacs-prisma-mode" ))
+   )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -331,8 +342,10 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   ;; dotspacemacs-line-numbers '(:relative t :disabled-for-modes markdown-mode :size-limit-kb 1000)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers '(:relative t
+                               :disabled-for-modes markdown-mode
+                               :size-limit-kb 5000)
+   ;; dotspacemacs-line-numbers t
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -443,6 +456,8 @@ you should place your code here."
 
   ;; Necessary.
   (setq flycheck-python-pycompile-executable "python3")
+  (setq flycheck-flake8rc "/Users/daniel.brady/.config/flake8")
+  (add-hook 'lsp-mode-hook (lambda () (flycheck-add-next-checker 'lsp 'python-flake8)))
 
   ;; Stop inserting "magic comments" automatically on save in Ruby mode.
   ;; (setq ruby-insert-encoding-magic-comment nil)
@@ -460,11 +475,9 @@ you should place your code here."
   (setq magithub-clone-default-directory "~/github")
   (setq magit-repository-directories '(
                                        ("~/github" . 1)
-                                       ("~/github/prodperfect" . 1)
                                        ))
   (setq projectile-project-search-path '(
                                          "~/github"
-                                         "~/github/prodperfect"
                                          ))
 
 
@@ -474,6 +487,8 @@ you should place your code here."
   ;; Enable prettier-js minor mode for various major modes (formats on save)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
+  (add-hook 'typescript-mode-hook 'prettier-js-mode)
+  (add-hook 'typescript-tsx-mode-hook 'prettier-js-mode)
 
   ;; For personal Hammerspoons
   (add-to-list 'auto-mode-alist '("\\.\\(?:flow\\|mode\\|rockspec\\)\\'" . lua-mode))
@@ -608,7 +623,7 @@ This function is called at the very end of Spacemacs initialization."
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(cursor-type 'bar)
  '(custom-safe-themes
-   '("d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" "039c01abb72985a21f4423dd480ddb998c57d665687786abd4e16c71128ef6ad" default))
+   '("a44bca3ed952cb0fd2d73ff3684bda48304565d3eb9e8b789c6cca5c1d9254d1" "d14f3df28603e9517eb8fb7518b662d653b25b26e83bd8e129acea042b774298" "039c01abb72985a21f4423dd480ddb998c57d665687786abd4e16c71128ef6ad" default))
  '(diary-entry-marker 'font-lock-variable-name-face)
  '(emms-mode-line-icon-image-cache
    '(image :type xpm :ascent center :data "/* XPM */
@@ -674,6 +689,7 @@ static char *gnus-pointer[] = {
  '(spaceline-all-the-icons-icon-set-modified 'toggle)
  '(spaceline-all-the-icons-icon-set-sun-time 'sun/moon)
  '(spaceline-all-the-icons-icon-set-window-numbering 'solid)
+ '(tab-always-indent t)
  '(treemacs-collapse-dirs 3)
  '(treemacs-filewatch-mode t)
  '(treemacs-follow-after-init t)
