@@ -1,9 +1,9 @@
 {
   "collapse-filter": false,
-  "search": "tag:#daily",
+  "search": "-path:\"templates\"",
   "showTags": false,
   "showAttachments": false,
-  "hideUnresolved": true,
+  "hideUnresolved": false,
   "showOrphans": true,
   "collapse-color-groups": true,
   "colorGroups": [
@@ -29,16 +29,16 @@
       }
     }
   ],
-  "collapse-display": true,
+  "collapse-display": false,
   "showArrow": false,
   "textFadeMultiplier": 0,
   "nodeSizeMultiplier": 1,
-  "lineSizeMultiplier": 1,
-  "collapse-forces": true,
-  "centerStrength": 0.518713248970312,
-  "repelStrength": 10,
+  "lineSizeMultiplier": 2.46964925130208,
+  "collapse-forces": false,
+  "centerStrength": 0.567097981770833,
+  "repelStrength": 11.1588541666667,
   "linkStrength": 1,
-  "linkDistance": 250,
-  "scale": 1.190632213765561,
-  "close": false
+  "linkDistance": 30,
+  "scale": 0.4755338703927854,
+  "close": true
 }
