@@ -92,10 +92,48 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-### Initialize ASDF version manager
-source ~/.asdf/asdf.sh
+### ASDF version manager
+export ASDF_DATA_DIR=/Users/daniel.brady/.asdf
 # append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+fpath=(${ASDF_DATA_DIR}/completions $fpath)  # asf Version Manager
 # initialise completions with ZSH's compinit
 autoload -Uz compinit
 compinit
+
+
+### Path manipulation
+
+# various tools from the internet
+export PATH="$HOME/bin:$PATH"
+# yarn
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# gcloud
+export PATH="/Users/daniel.brady/bin/google-cloud-sdk/bin:$PATH"
+# asdf
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/daniel.brady/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+. "$HOME/.local/bin/env"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/local/bin/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/local/bin/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/opt/local/bin/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/local/bin/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
