@@ -207,6 +207,11 @@ function localkube_env() {
     export MINIKUBE_SUBNET=$(echo ${MINIKUBE_IP} | awk -F '.' '{ printf("%s.%s.%s.0", $1, $2, $3) }')
     export MINIKUBE_GATEWAY=$(echo ${MINIKUBE_IP} | awk -F '.' '{ printf("%s.%s.%s.1", $1, $2, $3) }')
 }
+
+function werk() {
+  (set -o xtrace; yarn workspace $@)
+}
+
 ##### Handy one-liners #####
 
 ## Append text to all commit messages reachable by git-rebase

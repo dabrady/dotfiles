@@ -36,6 +36,9 @@ alias interrupt='kill -2'
 # This allows us to use the 'watch' command with an alias. Unfortunately, passing any flags will break this :P
 alias watch='watch '
 
+# Disables outbound remote network traffic.
+alias netguard="sandbox-exec -p '(version 1)(allow default)(deny network-outbound)(allow network-outbound (local ip \"*:*\"))'"
+
 alias git=hub
 alias make-pr='git pull-request --browse --assign $GITHUB_USER'
 alias gnp='git --no-pager'
@@ -55,6 +58,7 @@ alias zvars='edit $ZSH_CUSTOM/vars.zsh'
 alias rz='source ~/.zshrc'
 alias rzconf='source $ZSH_CUSTOM/conf.zsh'
 alias rzals='source $ZSH_CUSTOM/aliases.zsh'
+alias rzfun='source $ZSH_CUSTOM/functions.zsh'
 alias rzvars='source $ZSH_CUSTOM/vars.zsh'
 
 ## Ruby things

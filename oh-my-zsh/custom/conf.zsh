@@ -31,6 +31,12 @@ function exit() {
   event emit _EXIT_
   builtin exit "$@"
 }
+# function killEmacs() {
+#   echo "killing emacs"
+#   sleep 2
+# }
+# event on _EXIT_ killEmacs
+
 # Enable more powerful globbing
 setopt extended_glob
 
